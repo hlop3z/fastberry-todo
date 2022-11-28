@@ -17,6 +17,23 @@ pdm app run
 ## Client
 
 ```graphql
+fragment ErrorFields on Error {
+  error
+  meta
+  messages {
+    field
+    text
+    type
+  }
+}
+
+fragment TaskFields on Task {
+  id
+  title
+  description
+  status
+}
+
 mutation CreateTask {
   create(
     form: {
@@ -26,19 +43,10 @@ mutation CreateTask {
     }
   ) {
     ... on Task {
-      id
-      title
-      description
-      status
+      ...TaskFields
     }
     ... on Error {
-      error
-      meta
-      messages {
-        field
-        text
-        type
-      }
+      ...ErrorFields
     }
   }
 }
@@ -52,19 +60,10 @@ mutation CreateSecondTask {
     }
   ) {
     ... on Task {
-      id
-      title
-      description
-      status
+      ...TaskFields
     }
     ... on Error {
-      error
-      meta
-      messages {
-        field
-        text
-        type
-      }
+      ...ErrorFields
     }
   }
 }
@@ -72,19 +71,10 @@ mutation CreateSecondTask {
 mutation UpdateTask {
   update(item: "MTo6YTU1ZTUzMmVhYjAyOGI0Mg==", status: "close") {
     ... on Task {
-      id
-      title
-      description
-      status
+      ...TaskFields
     }
     ... on Error {
-      error
-      meta
-      messages {
-        field
-        text
-        type
-      }
+      ...ErrorFields
     }
   }
 }
@@ -93,10 +83,7 @@ query AllTasks {
   search(status: null) {
     edges {
       node {
-        id
-        title
-        description
-        status
+        ...TaskFields
       }
     }
   }
@@ -106,10 +93,7 @@ query SearchTask {
   search(status: "open") {
     edges {
       node {
-        id
-        title
-        description
-        status
+        ...TaskFields
       }
     }
   }
