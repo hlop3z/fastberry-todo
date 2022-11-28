@@ -22,7 +22,13 @@ class Task:
 
         # Good Input
         if form.is_valid:
-            results = await cls.objects.create(form.data.__dict__)
+            results = await cls.objects.create(
+                {
+                    "title": form.data.title,
+                    "status": form.data.status,
+                    "description": form.data.description,
+                }
+            )
             if not results.error:
                 item = results.data
                 return types.Task(
@@ -65,11 +71,9 @@ class Task:
     @classmethod
     async def delete(cls, unique_id):
         """Delete"""
-
         results = await cls.objects.delete(unique_id)
         if not results.error:
             return True
-
         return False
 
     @classmethod
@@ -85,6 +89,7 @@ class Task:
         results = await cls.objects.search(
             columns=columns, value=search, page=1, limit=100, sort_by="-id"
         )
+        # Search
         if not results.error:
             return fb.page(
                 edges=[
@@ -100,6 +105,7 @@ class Task:
                 length=results.count,
                 pages=results.pages,
             )
+        # All Items
         return fb.page(
             edges=[],
             length=0,
