@@ -1,22 +1,3 @@
-# Fastberry-Todo
-
-Todo Example for **Fastberry**
-
-## Install
-
-```sh
-pdm install
-```
-
-## Run
-
-```sh
-pdm app run
-```
-
-## Client
-
-```graphql
 mutation CreateTask {
   create(
     form: {
@@ -118,4 +99,3 @@ query SearchTask {
 mutation DeleteTask {
   delete(item: "Mjo6M2VmOWFiYmI1ZGY1YjY0MQ==")
 }
-```
