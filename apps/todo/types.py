@@ -9,7 +9,7 @@ import fastberry as fb
 # Create your <types> here.
 @fb.sql.model
 class Task:
-    """(Type) Read The Docs"""
+    """Task's Database Table"""
 
     title: str
     description: str

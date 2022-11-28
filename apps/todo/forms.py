@@ -10,7 +10,7 @@ form = fb.input("form")
 # Create your <forms> here.
 @form
 class Task:
-    """(FormTask) Read The Docs"""
+    """Task's Client Input Form"""
 
     title = fb.value(str, default=None, required=True)
     description = fb.value(str, default=None, required=True)

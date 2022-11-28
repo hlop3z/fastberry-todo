@@ -10,7 +10,7 @@ from . import types
 # Create your <managers> here.
 @fb.manager
 class Task:
-    """Product Manager"""
+    """Task's Database Manager"""
 
     model = types.Task
 
