@@ -22,3 +22,4 @@ tests/report/
 
 # Fastberry
 config/env/production.env
+.pdm.toml
