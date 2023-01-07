@@ -27,6 +27,12 @@ fragment ErrorFields on Error {
   }
 }
 
+fragment PageFields on PageInfo {
+  length
+  pages
+  extra
+}
+
 fragment TaskFields on Task {
   id
   title
@@ -79,22 +85,34 @@ mutation UpdateTask {
   }
 }
 
+query DetailTask {
+  item: detail(item: "MTo6YTU1ZTUzMmVhYjAyOGI0Mg==") {
+    ...TaskFields
+  }
+}
+
 query AllTasks {
-  search(status: null) {
+  list: search(status: null) {
     edges {
       node {
         ...TaskFields
       }
     }
+    pageInfo {
+      ...PageFields
+    }
   }
 }
 
 query SearchTask {
-  search(status: "open") {
+  list: search(status: "open") {
     edges {
       node {
         ...TaskFields
       }
+    }
+    pageInfo {
+      ...PageFields
     }
   }
 }
