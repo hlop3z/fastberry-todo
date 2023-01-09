@@ -5,3 +5,4 @@
 
 # Import your <cruds> here.
 from .todo import Todo
+from .demo import Demo
