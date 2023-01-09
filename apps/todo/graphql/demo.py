@@ -1,7 +1,16 @@
 import fastberry as fb
+import strawberry
+from enum import Enum
 
 # Type(s) Tools
 from .. import types
+
+
+@strawberry.enum
+class IceCreamFlavour(Enum):
+    VANILLA = "vanilla"
+    STRAWBERRY = "strawberry"
+    CHOCOLATE = "chocolate"
 
 
 @fb.gql
@@ -16,6 +25,11 @@ class Demo:
 
     class Query:
         """Query"""
+
+        async def ice_cream(info) -> IceCreamFlavour:
+            """Read the Docs"""
+            print(info)
+            return "Detail"
 
         async def list(info) -> list[types.Product]:
             """Read the Docs"""
