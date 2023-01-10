@@ -33,14 +33,14 @@ fragment PageFields on PageInfo {
   extra
 }
 
-fragment TaskFields on Task {
+fragment ModelFields on Task {
   id
   title
   description
   status
 }
 
-mutation CreateTask {
+mutation Create {
   create(
     form: {
       title: "First App"
@@ -49,7 +49,7 @@ mutation CreateTask {
     }
   ) {
     ... on Task {
-      ...TaskFields
+      ...ModelFields
     }
     ... on Error {
       ...ErrorFields
@@ -57,27 +57,10 @@ mutation CreateTask {
   }
 }
 
-mutation CreateSecondTask {
-  create(
-    form: {
-      title: "Post Tutorial"
-      description: "post the example app."
-      status: "open"
-    }
-  ) {
-    ... on Task {
-      ...TaskFields
-    }
-    ... on Error {
-      ...ErrorFields
-    }
-  }
-}
-
-mutation UpdateTask {
+mutation Update {
   update(item: "MTo6YTU1ZTUzMmVhYjAyOGI0Mg==", status: "close") {
     ... on Task {
-      ...TaskFields
+      ...ModelFields
     }
     ... on Error {
       ...ErrorFields
@@ -85,30 +68,21 @@ mutation UpdateTask {
   }
 }
 
-query DetailTask {
+mutation Delete {
+  delete(item: "Mjo6M2VmOWFiYmI1ZGY1YjY0MQ==")
+}
+
+query Detail {
   item: detail(item: "MTo6YTU1ZTUzMmVhYjAyOGI0Mg==") {
-    ...TaskFields
+    ...ModelFields
   }
 }
 
-query AllTasks {
-  list: search(status: null) {
-    edges {
-      node {
-        ...TaskFields
-      }
-    }
-    pageInfo {
-      ...PageFields
-    }
-  }
-}
-
-query SearchTask {
+query Search {
   list: search(status: "open") {
     edges {
       node {
-        ...TaskFields
+        ...ModelFields
       }
     }
     pageInfo {
@@ -117,7 +91,16 @@ query SearchTask {
   }
 }
 
-mutation DeleteTask {
-  delete(item: "Mjo6M2VmOWFiYmI1ZGY1YjY0MQ==")
+query All {
+  list: search(status: null) {
+    edges {
+      node {
+        ...ModelFields
+      }
+    }
+    pageInfo {
+      ...PageFields
+    }
+  }
 }
 ```
